@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class TimerUI : MonoBehaviour
 {
     public Text timerText;
+    public Text miniTimerText;
     public Text notificationText;
     public Image circleBar;
     [SerializeField]
@@ -82,6 +83,7 @@ public class TimerUI : MonoBehaviour
         int minutes = Mathf.FloorToInt((time % 3600) / 60f);
         int seconds = Mathf.FloorToInt(time % 60f);
         timerText.text = string.Format("{0:00}:{1:00}:{2:00}", hours, minutes, seconds);
+        miniTimerText.text = string.Format("{0:00}:{1:00}:{2:00}", hours, minutes, seconds);
     }
 
     public void UpdateProgressBar(float progress)
