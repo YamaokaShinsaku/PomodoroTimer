@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 
 public class TimeManager : MonoBehaviour
@@ -13,7 +13,7 @@ public class TimeManager : MonoBehaviour
     private bool isWorkSession = true;
     private int sessionsCompleted = 0;
 
-    // ƒCƒxƒ“ƒg
+    // ã‚¤ãƒ™ãƒ³ãƒˆ
     public event Action OnWorkSessionStart;
     public event Action OnShortBreakStart;
     public event Action OnLongBreakStart;
@@ -21,7 +21,7 @@ public class TimeManager : MonoBehaviour
 
     private void Start()
     {
-        timer = workDuration; // ƒ^ƒCƒ}[‚ğì‹ÆŠÔ‚Éİ’è
+        timer = workDuration; // ã‚¿ã‚¤ãƒãƒ¼ã‚’ä½œæ¥­æ™‚é–“ã«è¨­å®š
     }
 
     // Update is called once per frame
@@ -82,12 +82,8 @@ public class TimeManager : MonoBehaviour
 
     public void StartTimer()
     {
-        if(!isRunning)
-        {
-            StartWorkSession();
-            isRunning = true;
-            Debug.Log("Start");
-        }
+        isRunning = true;
+        Debug.Log("Start");
     }
 
     public void StopTimer()
@@ -99,7 +95,9 @@ public class TimeManager : MonoBehaviour
     public void ResetTimer()
     {
         isRunning = false;
-        timer = isWorkSession ? workDuration : shortBreakDuration;
+        isWorkSession = false;
+        workDuration = 25 * 60f;
+        timer = workDuration;
         Debug.Log("Reset");
     }
 

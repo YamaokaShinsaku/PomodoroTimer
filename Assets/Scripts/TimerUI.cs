@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,18 +7,19 @@ public class TimerUI : MonoBehaviour
 {
     public Text timerText;
     public Text notificationText;
+    public Image circleBar;
     [SerializeField]
     private TimeManager timeManager;
 
-    // ì‹ÆŠÔ‚ÌÅ¬’li25•ªj‚¨‚æ‚Ñ‘Œ¸‚Ì’PˆÊi5•ªj
+    // ä½œæ¥­æ™‚é–“ã®æœ€å°å€¤ï¼ˆ25åˆ†ï¼‰ãŠã‚ˆã³å¢—æ¸›ã®å˜ä½ï¼ˆ5åˆ†ï¼‰
     private const float MinWorkDuration = 25f;
     private const float StepDuration = 5f;
-    private float workDuration; // Œ»İ‚Ìì‹ÆŠÔ‚ğŠÇ—‚·‚é
+    private float workDuration; // ç¾åœ¨ã®ä½œæ¥­æ™‚é–“ã‚’ç®¡ç†ã™ã‚‹
 
     // Start is called before the first frame update
     void Start()
     {
-        // TimerManager‚ÌƒCƒxƒ“ƒg‚ğw“Ç
+        // TimerManagerã®ã‚¤ãƒ™ãƒ³ãƒˆã‚’è³¼èª­
         timeManager.OnWorkSessionStart += OnWorkSessionStart;
         timeManager.OnShortBreakStart += OnShortBreakStart;
         timeManager.OnLongBreakStart += OnLongBreakStart;
@@ -31,26 +32,48 @@ public class TimerUI : MonoBehaviour
     void Update()
     {
         UpdateTimerText(timeManager.GetTimer());
+
+        // ä½œæ¥­æ™‚é–“ã«å¯¾ã—ã¦ç¾åœ¨ã®ã‚¿ã‚¤ãƒãƒ¼å€¤ã®å‰²åˆã‚’è¨ˆç®—
+        float progress = timeManager.GetTimer() / (workDuration * 60f);
+        UpdateProgressBar(progress);
     }
 
     void OnWorkSessionStart()
     {
-        notificationText.text = "ì‹ÆŠÔ‚Å‚·I";
+        notificationText.text = "ä½œæ¥­ä¸­";
     }
 
     void OnShortBreakStart()
     {
-        notificationText.text = "’Z‚¢‹xŒeŠÔ‚Å‚·I";
+        notificationText.text = "ä¼‘æ†©ä¸­";
     }
 
     void OnLongBreakStart()
     {
-        notificationText.text = "’·‚¢‹xŒeŠÔ‚Å‚·I";
+        notificationText.text = "ä¼‘æ†©ä¸­";
     }
 
     void OnTimerComplete()
     {
-        notificationText.text = "ƒ^ƒCƒ}[‚ªI—¹‚µ‚Ü‚µ‚½I";
+        notificationText.text = "çµ‚äº†";
+    }
+
+    public void OnStartButtonClicked()
+    {
+        timeManager.StartTimer();
+    }
+    public void OnStopButtonClicked()
+    {
+        timeManager.StopTimer();
+    }
+    public void OnResetButtonClicked()
+    {
+        timeManager.ResetTimer();
+        // ãƒªã‚»ãƒƒãƒˆå¾Œã€è¡¨ç¤ºã‚’æ›´æ–°
+        workDuration = 25f;
+        UpdateTimerText(timeManager.GetTimer());
+        UpdateProgressBar(1.0f);
+        notificationText.text = "ä½œæ¥­æ™‚é–“ : 25åˆ†";
     }
 
     void UpdateTimerText(float time)
@@ -61,13 +84,22 @@ public class TimerUI : MonoBehaviour
         timerText.text = string.Format("{0:00}:{1:00}:{2:00}", hours, minutes, seconds);
     }
 
+    public void UpdateProgressBar(float progress)
+    {
+        if (circleBar != null)
+        {
+            circleBar.fillAmount = progress;
+        }
+    }
+
     public void IncreaseWorkDuration()
     {
         workDuration = timeManager.GetTimer() / 60f;
         workDuration += StepDuration;
         timeManager.UpdateWorkDuration(workDuration);
         UpdateTimerText(workDuration * 60f);
-        notificationText.text = $"ì‹ÆŠÔ: {workDuration:f0} •ª";
+        UpdateProgressBar(1.0f);
+        notificationText.text = $"ä½œæ¥­æ™‚é–“ : {workDuration:f0} åˆ†";
     }
 
     public void DecreaseWorkDuration()
@@ -80,6 +112,7 @@ public class TimerUI : MonoBehaviour
         }
         timeManager.UpdateWorkDuration(workDuration);
         UpdateTimerText(workDuration * 60f);
-        notificationText.text = $"ì‹ÆŠÔ: {workDuration:f0} •ª";
+        UpdateProgressBar(1.0f);
+        notificationText.text = $"ä½œæ¥­æ™‚é–“: {workDuration:f0} åˆ†";
     }
 }
