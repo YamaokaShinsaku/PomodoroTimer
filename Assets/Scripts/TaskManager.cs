@@ -9,12 +9,12 @@ public class TaskManager : MonoBehaviour
     public InputField taskInputField;
     public Button addTaskButton;
     public GameObject taskPrefab;
-    public Canvas taskCanvas;          // タスクを表示するCanvas
+    public RectTransform taskPanel;          // タスクを表示するCanvas
     private int count;      // 生成数のカウント
 
     // 初期の生成位置 (左上)
-    private Vector2 initialSpawnPosition = new Vector2(115, 195);
-    public Vector2 currentSpawnPosition;
+    public Vector2 initialSpawnPosition = new Vector2(0, 250);
+    private Vector2 currentSpawnPosition;
     private readonly float offsetY = 50f;  // Y方向へのオフセット量
 
     private List<GameObject> tasks = new List<GameObject>(); // タスクのリスト
@@ -39,8 +39,8 @@ public class TaskManager : MonoBehaviour
         string taskText = taskInputField.text;
         if (!string.IsNullOrEmpty(taskText))
         {
-            // TaskCanvasの子として新しいタスクを生成
-            GameObject newTask = Instantiate(taskPrefab, taskCanvas.transform);
+            // TaskPanelの子として新しいタスクを生成
+            GameObject newTask = Instantiate(taskPrefab, taskPanel.transform);
             newTask.GetComponentInChildren<Text>().text = taskText;
 
             // 生成されたタスクの位置を設定
