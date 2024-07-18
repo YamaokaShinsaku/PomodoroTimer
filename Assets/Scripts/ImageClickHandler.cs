@@ -20,6 +20,7 @@ public class ImageClickHandler : MonoBehaviour, IPointerClickHandler
                 UIManager.instance.CloseMainTimerUIEvent();
                 break;
             case 3:
+                TaskManager.instance.DeleteTask(this.gameObject);
                 break;
             default:
                 Debug.Log("番号が範囲外です");
