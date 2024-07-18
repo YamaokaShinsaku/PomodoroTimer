@@ -7,7 +7,7 @@ using DG.Tweening;
 public class TaskManager : MonoBehaviour
 {
     public InputField taskInputField;
-    public Button addTaskButton;
+    //public Button addTaskButton;
     public GameObject taskPrefab;
     public RectTransform taskPanel;          // タスクを表示するCanvas
     private int count;      // 生成数のカウント
@@ -25,7 +25,21 @@ public class TaskManager : MonoBehaviour
     {
         instance = this;
         currentSpawnPosition = initialSpawnPosition;
-        addTaskButton.onClick.AddListener(AddTask);  // ボタンのクリックリスナーを追加
+        //addTaskButton.onClick.AddListener(AddTask);  // ボタンのクリックリスナーを追加
+        taskInputField.onEndEdit.AddListener(EnterPressed);
+    }
+    void OnDestroy()
+    {
+        taskInputField.onEndEdit.RemoveListener(EnterPressed);
+    }
+
+
+    void EnterPressed(string text)
+    {
+        if(Input.GetKeyDown(KeyCode.Return))
+        {
+            AddTask();
+        }
     }
 
     void AddTask()
@@ -41,6 +55,12 @@ public class TaskManager : MonoBehaviour
         {
             // TaskPanelの子として新しいタスクを生成
             GameObject newTask = Instantiate(taskPrefab, taskPanel.transform);
+
+            // 指定のオブジェクトの兄弟インデックスを取得
+            int targetIndex = taskInputField.transform.GetSiblingIndex();
+            // 新しいオブジェクトを、指定のオブジェクトの一つ上に移動
+            newTask.transform.SetSiblingIndex(targetIndex);
+
             newTask.GetComponentInChildren<Text>().text = taskText;
 
             // 生成されたタスクの位置を設定

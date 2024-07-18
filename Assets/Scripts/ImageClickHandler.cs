@@ -15,12 +15,20 @@ public class ImageClickHandler : MonoBehaviour, IPointerClickHandler
         {
             case 1:
                 UIManager.instance.OpenMainTimerUIEvene();
+                UIManager.instance.FadeOutTaskUIAnimation();
+                UIManager.instance.ShowTaskMenuUI();
                 break;
             case 2:
                 UIManager.instance.CloseMainTimerUIEvent();
                 break;
             case 3:
                 TaskManager.instance.DeleteTask(this.gameObject);
+                break;
+            case 4:
+                UIManager.instance.FadeInTaskUIAnimation();
+                break;
+            case 5:
+                UIManager.instance.FadeOutTaskUIAnimation();
                 break;
             default:
                 Debug.Log("番号が範囲外です");
