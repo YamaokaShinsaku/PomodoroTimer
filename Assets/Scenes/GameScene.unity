@@ -317,6 +317,7 @@ GameObject:
   - component: {fileID: 20676656}
   - component: {fileID: 20676655}
   - component: {fileID: 20676654}
+  - component: {fileID: 20676657}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -409,6 +410,21 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &20676657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20676652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00c1369e4da9aad478d7b395a0fc9abf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  miniTimerUI: {fileID: 817524827}
+  mainTimerUI: {fileID: 536897788}
+  dateTimeUI: {fileID: 1648160363}
 --- !u!114 &22914174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15752,22 +15768,22 @@ PrefabInstance:
     - target: {fileID: 3244245556521541988, guid: d09ad13c43483fb4084b31f47f3688d3,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3244245556521541988, guid: d09ad13c43483fb4084b31f47f3688d3,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3244245556521541988, guid: d09ad13c43483fb4084b31f47f3688d3,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3244245556521541988, guid: d09ad13c43483fb4084b31f47f3688d3,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3244245556521541988, guid: d09ad13c43483fb4084b31f47f3688d3,
         type: 3}
@@ -15817,12 +15833,12 @@ PrefabInstance:
     - target: {fileID: 3244245556521541988, guid: d09ad13c43483fb4084b31f47f3688d3,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 100
+      value: -150
       objectReference: {fileID: 0}
     - target: {fileID: 3244245556521541988, guid: d09ad13c43483fb4084b31f47f3688d3,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 50
+      value: -350
       objectReference: {fileID: 0}
     - target: {fileID: 3244245556521541988, guid: d09ad13c43483fb4084b31f47f3688d3,
         type: 3}
@@ -16138,8 +16154,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventNumber: 1
-  miniTimerUI: {fileID: 817524827}
-  mainTimerUI: {fileID: 536897788}
 --- !u!114 &818029906
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21021,8 +21035,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eventNumber: 2
-  miniTimerUI: {fileID: 817524827}
-  mainTimerUI: {fileID: 536897788}
 --- !u!1 &1185942882
 GameObject:
   m_ObjectHideFlags: 0
@@ -25838,6 +25850,12 @@ CapsuleCollider:
   m_Height: 0.12
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1648160363 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 509421472775147255, guid: d09ad13c43483fb4084b31f47f3688d3,
+    type: 3}
+  m_PrefabInstance: {fileID: 808289007}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1648160364 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3244245556521541988, guid: d09ad13c43483fb4084b31f47f3688d3,

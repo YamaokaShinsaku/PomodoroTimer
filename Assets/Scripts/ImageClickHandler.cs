@@ -7,10 +7,6 @@ public class ImageClickHandler : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField]
     private int eventNumber = 0;
-    [SerializeField]
-    private GameObject miniTimerUI;
-    [SerializeField]
-    private GameObject mainTimerUI;
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -18,10 +14,10 @@ public class ImageClickHandler : MonoBehaviour, IPointerClickHandler
         switch(eventNumber)
         {
             case 1:
-                OpenMainTimerUIEvene();
+                UIManager.instance.OpenMainTimerUIEvene();
                 break;
             case 2:
-                CloseMainTimerUIEvent();
+                UIManager.instance.CloseMainTimerUIEvent();
                 break;
             case 3:
                 break;
@@ -29,17 +25,5 @@ public class ImageClickHandler : MonoBehaviour, IPointerClickHandler
                 Debug.Log("番号が範囲外です");
                 break;
         }
-    }
-
-    void OpenMainTimerUIEvene()
-    {
-        mainTimerUI.SetActive(true);
-        miniTimerUI.SetActive(false);
-    }
-
-    void CloseMainTimerUIEvent()
-    {
-        mainTimerUI.SetActive(false);
-        miniTimerUI.SetActive(true);
     }
 }
