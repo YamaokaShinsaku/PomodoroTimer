@@ -13,15 +13,9 @@ public class TimeManager : MonoBehaviour
     private bool isWorkSession = true;
     private int sessionsCompleted = 0;
 
-    // イベント
-    public event Action OnWorkSessionStart;
-    public event Action OnShortBreakStart;
-    public event Action OnLongBreakStart;
-    public event Action OnTimerComplete;
-
     private void Start()
     {
-        timer = workDuration; // タイマーを作業時間に設定
+        InirializeTimer();
     }
 
     // Update is called once per frame
@@ -31,10 +25,10 @@ public class TimeManager : MonoBehaviour
         {
             timer -= Time.deltaTime;
 
-            if(timer <= 0)
+            if (timer <= 0)
             {
                 isRunning = false;
-                OnTimerComplete?.Invoke();
+                //OnTimerComplete?.Invoke();
 
                 if(isWorkSession)
                 {
@@ -56,12 +50,17 @@ public class TimeManager : MonoBehaviour
         }
     }
 
+    public void InirializeTimer()
+    {
+        isWorkSession = true;
+        timer = workDuration; // タイマーを作業時間に設定
+    }
+
     public void StartWorkSession()
     {
         isWorkSession = true;
         timer = workDuration;
         isRunning = true;
-        OnWorkSessionStart?.Invoke();
     }
 
     public void StartShortBreak()
@@ -69,7 +68,6 @@ public class TimeManager : MonoBehaviour
         isWorkSession = false;
         timer = shortBreakDuration;
         isRunning = true;
-        OnShortBreakStart?.Invoke();
     }
 
     public void StartLongBreak()
@@ -77,7 +75,6 @@ public class TimeManager : MonoBehaviour
         isWorkSession = false;
         timer = longBreakDuration;
         isRunning = true;
-        OnLongBreakStart?.Invoke();
     }
 
     public void StartTimer()
@@ -95,7 +92,7 @@ public class TimeManager : MonoBehaviour
     public void ResetTimer()
     {
         isRunning = false;
-        isWorkSession = false;
+        isWorkSession = true;
         workDuration = 25 * 60f;
         timer = workDuration;
         Debug.Log("Reset");

@@ -13,7 +13,7 @@ public class SoundManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        timeManager.OnTimerComplete += OnTimerComplete;
+        //timeManager.OnTimerComplete += OnTimerComplete;
     }
 
     void OnTimerComplete()
