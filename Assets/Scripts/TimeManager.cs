@@ -13,6 +13,8 @@ public class TimeManager : MonoBehaviour
     private bool isWorkSession = true;
     private int sessionsCompleted = 0;
 
+    public Action OnSessionChange;
+
     private void Start()
     {
         InirializeTimer();
@@ -46,6 +48,8 @@ public class TimeManager : MonoBehaviour
                 {
                     StartWorkSession();
                 }
+
+                OnSessionChange?.Invoke(); // セッションが変更されたことを通知
             }
         }
     }
@@ -61,6 +65,7 @@ public class TimeManager : MonoBehaviour
         isWorkSession = true;
         timer = workDuration;
         isRunning = true;
+        OnSessionChange?.Invoke(); // セッションが変更されたことを通知
     }
 
     public void StartShortBreak()
@@ -68,6 +73,7 @@ public class TimeManager : MonoBehaviour
         isWorkSession = false;
         timer = shortBreakDuration;
         isRunning = true;
+        OnSessionChange?.Invoke(); // セッションが変更されたことを通知
     }
 
     public void StartLongBreak()
@@ -75,6 +81,7 @@ public class TimeManager : MonoBehaviour
         isWorkSession = false;
         timer = longBreakDuration;
         isRunning = true;
+        OnSessionChange?.Invoke(); // セッションが変更されたことを通知
     }
 
     public void StartTimer()
@@ -101,6 +108,15 @@ public class TimeManager : MonoBehaviour
     public float GetTimer()
     {
         return timer;
+    }
+
+    public bool IsWorkSession()
+    {
+        return isWorkSession;
+    }
+    public float GetCurrentSessionDuration()
+    {
+        return isWorkSession ? workDuration : timer == shortBreakDuration ? shortBreakDuration : longBreakDuration;
     }
 
     public void UpdateWorkDuration(float newWorkDuration)

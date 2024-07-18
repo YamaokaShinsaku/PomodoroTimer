@@ -15,15 +15,18 @@ public class TimerUI : MonoBehaviour
     // 作業時間の最小値（25分）および増減の単位（5分）
     private const float MinWorkDuration = 25f;
     private const float StepDuration = 5f;
-    private float workDuration; // 現在の作業時間を管理する  
+    private float currentSessionDuration; // 現在のセッション時間を管理する  
 
     // Start is called before the first frame update
     void Start()
     {
-        workDuration = 25f;
-        UpdateTimerText(workDuration * 60f);
+        currentSessionDuration = timeManager.workDuration;
+        UpdateTimerText(timeManager.GetTimer());
         UpdateProgressBar(1.0f);
         notificationText.text = "作業時間：25 分";
+
+        // セッションが変わった時の処理を追加
+        timeManager.OnSessionChange += OnSessionChange;
     }
 
     void Update()
@@ -32,22 +35,15 @@ public class TimerUI : MonoBehaviour
         UpdateTimerText(currentTimer);
 
         // 作業時間に対して現在のタイマー値の割合を計算
-        float progress = currentTimer / (workDuration * 60f);
+        // プログレスバーを更新
+        float progress = currentTimer / currentSessionDuration;
         UpdateProgressBar(progress);
     }
 
     public void OnStartButtonClicked()
     {
         timeManager.StartTimer();
-        if (timeManager.GetTimer() == timeManager.workDuration)
-        {
-            notificationText.text = "作業中";
-        }
-        else if (timeManager.GetTimer() == timeManager.shortBreakDuration 
-            || timeManager.GetTimer() == timeManager.longBreakDuration)
-        {
-            notificationText.text = "休憩中";
-        }
+        UpdateNotificationText();
     }
     public void OnStopButtonClicked()
     {
@@ -58,7 +54,7 @@ public class TimerUI : MonoBehaviour
     {
         timeManager.ResetTimer();
         // リセット後、表示を更新
-        workDuration = 25f;
+        currentSessionDuration = timeManager.workDuration;
         UpdateTimerText(timeManager.GetTimer());
         UpdateProgressBar(1.0f);
         notificationText.text = "作業時間 : 25分";
@@ -82,24 +78,48 @@ public class TimerUI : MonoBehaviour
     }
 
     public void IncreaseWorkDuration()
-    {       
-        workDuration += StepDuration;
-        timeManager.UpdateWorkDuration(workDuration);
-        UpdateTimerText(workDuration * 60f);
+    {
+        timeManager.UpdateWorkDuration((currentSessionDuration / 60) + StepDuration);
+        Debug.Log("IncreaseWorkDuration: " + currentSessionDuration / 60 + StepDuration);
+        currentSessionDuration = timeManager.GetCurrentSessionDuration();
+        UpdateTimerText(currentSessionDuration);
         UpdateProgressBar(1.0f);
-        notificationText.text = $"作業時間 : {workDuration:f0} 分";
+        notificationText.text = $"作業時間 ：{currentSessionDuration / 60:f0} 分";
     }
 
     public void DecreaseWorkDuration()
     {
-        workDuration -= StepDuration;
-        if (workDuration < MinWorkDuration)
+        float newDuration = (currentSessionDuration / 60) - StepDuration;
+        if (newDuration < MinWorkDuration)
         {
-            workDuration = MinWorkDuration;
+            newDuration = MinWorkDuration;
         }
-        timeManager.UpdateWorkDuration(workDuration);
-        UpdateTimerText(workDuration * 60f);
+        timeManager.UpdateWorkDuration(newDuration);
+        Debug.Log("DecreaseWorkDuration: " + newDuration);
+        currentSessionDuration = timeManager.GetCurrentSessionDuration();
+        UpdateTimerText(newDuration * 60);
         UpdateProgressBar(1.0f);
-        notificationText.text = $"作業時間 : {workDuration:f0} 分";
+        notificationText.text = $"作業時間 ：{newDuration:f0} 分";
+    }
+
+    // セッションが変わった時の処理
+    private void OnSessionChange()
+    {
+        UpdateNotificationText();
+        currentSessionDuration = timeManager.GetCurrentSessionDuration();
+        Debug.Log("OnSessionChange: " + currentSessionDuration);
+    }
+
+    // 通知テキストを更新する
+    private void UpdateNotificationText()
+    {
+        if (timeManager.IsWorkSession())
+        {
+            notificationText.text = "作業中";
+        }
+        else
+        {
+            notificationText.text = "休憩中";
+        }
     }
 }
