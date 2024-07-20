@@ -127,4 +127,11 @@ public class TimeManager : MonoBehaviour
             timer = workDuration;
         }
     }
+
+    public string GetFormattedTime()
+    {
+        int minutes = Mathf.FloorToInt(timer / 60f);
+        int seconds = Mathf.FloorToInt(timer % 60f);
+        return string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
 }

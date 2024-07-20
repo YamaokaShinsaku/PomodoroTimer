@@ -62,11 +62,11 @@ public class TimerUI : MonoBehaviour
 
     void UpdateTimerText(float time)
     {
-        int hours = Mathf.FloorToInt(time / 3600f);
-        int minutes = Mathf.FloorToInt((time % 3600) / 60f);
+        //int hours = Mathf.FloorToInt(time / 3600f);
+        int minutes = Mathf.FloorToInt((time) / 60f);
         int seconds = Mathf.FloorToInt(time % 60f);
-        timerText.text = string.Format("{0:00}:{1:00}:{2:00}", hours, minutes, seconds);
-        miniTimerText.text = string.Format("{0:00}:{1:00}:{2:00}", hours, minutes, seconds);
+        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+        miniTimerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 
     public void UpdateProgressBar(float progress)
