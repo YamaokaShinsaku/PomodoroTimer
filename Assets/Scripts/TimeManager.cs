@@ -109,7 +109,10 @@ public class TimeManager : MonoBehaviour
     {
         return timer;
     }
-
+    public bool IsRunning()
+    {
+        return isRunning;
+    }
     public bool IsWorkSession()
     {
         return isWorkSession;
@@ -126,12 +129,5 @@ public class TimeManager : MonoBehaviour
         {
             timer = workDuration;
         }
-    }
-
-    public string GetFormattedTime()
-    {
-        int minutes = Mathf.FloorToInt(timer / 60f);
-        int seconds = Mathf.FloorToInt(timer % 60f);
-        return string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 }

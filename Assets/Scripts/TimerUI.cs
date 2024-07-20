@@ -22,7 +22,7 @@ public class TimerUI : MonoBehaviour
     {
         currentSessionDuration = timeManager.workDuration;
         UpdateTimerText(timeManager.GetTimer());
-        UpdateProgressBar(1.0f);
+        UpdateProgressBar(0.0f);
         notificationText.text = "作業時間：25 分";
 
         // セッションが変わった時の処理を追加
@@ -37,7 +37,11 @@ public class TimerUI : MonoBehaviour
         // 作業時間に対して現在のタイマー値の割合を計算
         // プログレスバーを更新
         float progress = currentTimer / currentSessionDuration;
-        UpdateProgressBar(progress);
+        if(timeManager.IsRunning())
+        {
+            UpdateProgressBar(progress);
+        }
+        //UpdateProgressBar(progress);
     }
 
     public void OnStartButtonClicked()
@@ -56,7 +60,7 @@ public class TimerUI : MonoBehaviour
         // リセット後、表示を更新
         currentSessionDuration = timeManager.workDuration;
         UpdateTimerText(timeManager.GetTimer());
-        UpdateProgressBar(1.0f);
+        UpdateProgressBar(0.0f);
         notificationText.text = "作業時間 : 25分";
     }
 
@@ -83,7 +87,7 @@ public class TimerUI : MonoBehaviour
         Debug.Log("IncreaseWorkDuration: " + currentSessionDuration / 60 + StepDuration);
         currentSessionDuration = timeManager.GetCurrentSessionDuration();
         UpdateTimerText(currentSessionDuration);
-        UpdateProgressBar(1.0f);
+        //UpdateProgressBar(1.0f);
         notificationText.text = $"作業時間 ：{currentSessionDuration / 60:f0} 分";
     }
 
@@ -98,7 +102,7 @@ public class TimerUI : MonoBehaviour
         Debug.Log("DecreaseWorkDuration: " + newDuration);
         currentSessionDuration = timeManager.GetCurrentSessionDuration();
         UpdateTimerText(newDuration * 60);
-        UpdateProgressBar(1.0f);
+        //UpdateProgressBar(1.0f);
         notificationText.text = $"作業時間 ：{newDuration:f0} 分";
     }
 

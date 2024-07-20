@@ -30,6 +30,11 @@ public class ImageClickHandler : MonoBehaviour, IPointerClickHandler
             case 5:
                 UIManager.instance.FadeOutTaskUIAnimation();
                 break;
+            case 6:
+                CameraChanger.instance.changeCount++;
+                break;
+            case 7:
+                break;
             default:
                 Debug.Log("番号が範囲外です");
                 break;

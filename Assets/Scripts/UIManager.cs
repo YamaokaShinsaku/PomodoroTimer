@@ -14,6 +14,8 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private GameObject taskUI;
     [SerializeField]
+    private GameObject changeCameraUI;
+    [SerializeField]
     private GameObject OpenTaskMenuUI;
     [SerializeField]
     private GameObject CloseTaskMenuUI;
@@ -23,6 +25,9 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         instance = this;
+        mainTimerUI.SetActive(false);
+        miniTimerUI.SetActive(true);
+        changeCameraUI.SetActive(true);
         FadeOutTaskUIAnimation();
     }
 
