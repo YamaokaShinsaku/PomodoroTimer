@@ -10,6 +10,7 @@ public enum CameraModeType
 {
     Default,
     Sitting,
+    CampFire,
 }
 
 /// <summary>
@@ -23,9 +24,12 @@ public class CameraChanger : MonoBehaviour
     private CameraManager cameraManager;
     // 初期状態のカメラパラメータ
     private CameraManager.Parameter defaultParameter;
-    // 座っているキャラクターのパラメータ
+    // 座っているキャラクターのカメラパラメータ
     [SerializeField]
     private CameraManager.Parameter sittingParameter;
+    // 焚火付近のキャラクターのカメラパラメータ
+    [SerializeField]
+    private CameraManager.Parameter campFireParameter;
     // 変更回数のカウンター
     public int changeCount = 0;
     private int maxCount = 0;
@@ -59,6 +63,10 @@ public class CameraChanger : MonoBehaviour
         {
             SwitchCamera(CameraModeType.Sitting);
         }
+        else if (changeCount == 2)
+        {
+            SwitchCamera(CameraModeType.CampFire);
+        }
     }
 
     /// <summary>
@@ -79,6 +87,11 @@ public class CameraChanger : MonoBehaviour
             case CameraModeType.Sitting:
                 sittingParameter.position = sittingParameter.trackTarget.position;
                 sittingParameter.angles = cameraManager.Param.angles;
+                transform.eulerAngles = new Vector3(0.0f, cameraManager.Param.angles.y, 0.0f);
+                break;
+            case CameraModeType.CampFire:
+                campFireParameter.position = campFireParameter.trackTarget.position;
+                campFireParameter.angles = cameraManager.Param.angles;
                 transform.eulerAngles = new Vector3(0.0f, cameraManager.Param.angles.y, 0.0f);
                 break;
         }
@@ -105,6 +118,9 @@ public class CameraChanger : MonoBehaviour
             case CameraModeType.Sitting:
                 cameraSequence.OnUpdate(() => sittingParameter.position = sittingParameter.trackTarget.position);
                 break;
+            case CameraModeType.CampFire:
+                cameraSequence.OnUpdate(() => campFireParameter.position = campFireParameter.trackTarget.position);
+                break;
         }
 
         cameraSequence.AppendCallback(() => cameraManager.Param.trackTarget = endCameraParam.trackTarget);
@@ -123,6 +139,8 @@ public class CameraChanger : MonoBehaviour
                 return defaultParameter;
             case CameraModeType.Sitting:
                 return sittingParameter;
+            case CameraModeType.CampFire:
+                return campFireParameter;
             default:
                 return null;
         }
