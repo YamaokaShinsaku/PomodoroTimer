@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.26658133, g: 0.46284607, b: 0.61387473, a: 1}
+  m_IndirectSpecularColor: {r: 0.2667717, g: 0.46286196, b: 0.61385995, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -91237,6 +91237,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1698247956}
+  - component: {fileID: 1698247957}
   m_Layer: 0
   m_Name: Sounds
   m_TagString: Untagged
@@ -91263,6 +91264,28 @@ Transform:
   - {fileID: 1594978349}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1698247957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1698247955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef370c8b6c60c734b92122e81a1bafb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSoundData: 5
+  soundDatas:
+  - name: "\u4F11\u61A9"
+    audioClip: {fileID: 8300000, guid: 85999304b85d4204d84500363b194fab, type: 3}
+    volume: 1
+    isLoop: 0
+  - name: "\u4F5C\u696D\u958B\u59CB"
+    audioClip: {fileID: 8300000, guid: 7e81173efc1ce984a887f9ac89053f4e, type: 3}
+    volume: 1
+    isLoop: 0
 --- !u!1 &1698269897
 GameObject:
   m_ObjectHideFlags: 0

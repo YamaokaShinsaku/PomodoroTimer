@@ -13,7 +13,7 @@ public class TimerUI : MonoBehaviour
     private TimeManager timeManager;
 
     // 作業時間の最小値（25分）および増減の単位（5分）
-    private const float MinWorkDuration = 25f;
+    private const float MinWorkDuration = 1f;
     private const float StepDuration = 5f;
     private float currentSessionDuration; // 現在のセッション時間を管理する  
 
@@ -37,7 +37,7 @@ public class TimerUI : MonoBehaviour
         // 作業時間に対して現在のタイマー値の割合を計算
         // プログレスバーを更新
         float progress = currentTimer / currentSessionDuration;
-        if(timeManager.IsRunning())
+        if (timeManager.IsRunning())
         {
             UpdateProgressBar(progress);
         }
@@ -120,10 +120,12 @@ public class TimerUI : MonoBehaviour
         if (timeManager.IsWorkSession())
         {
             notificationText.text = "作業中";
+            SoundManager.instance.PlaySound("作業開始");
         }
         else
         {
             notificationText.text = "休憩中";
+            SoundManager.instance.PlaySound("休憩");
         }
     }
 }
