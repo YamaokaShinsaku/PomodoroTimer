@@ -32,9 +32,6 @@ public class SoundManager : MonoBehaviour
     [SerializeField]
     private SoundData[] soundDatas;
 
-    [SerializeField]
-    private AudioClip[] thunderSE;
-
     public static SoundManager instance;
 
     private void Awake()
@@ -144,19 +141,6 @@ public class SoundManager : MonoBehaviour
 
             PlaySound(soundData.audioClip, soundData.volume, soundData.isLoop);
         }
-    }
-    /// <summary>
-    /// 配列内の音声（雷）をラインダムで一つ再生する
-    /// </summary>
-    public void PlayRandomSound()
-    {
-        if (thunderSE == null || thunderSE.Length == 0)
-        {
-            return;
-        }
-
-        int randomIndex = Random.Range(0, thunderSE.Length);
-        PlaySound(thunderSE[randomIndex], 0.25f, false);
     }
 
     /// <summary>
